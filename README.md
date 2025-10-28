@@ -5,17 +5,18 @@ A crypto-native AI fortune teller powered by OpenAI and x402 micropayments, buil
 ## Features
 
 - 🔮 AI-powered fortune generation with OpenAI GPT-4
-- 💰 x402 micropayment integration (coming soon)
+- 💰 **x402 micropayment integration** - $0.01 per fortune
 - 🎨 Beautiful animated UI
 - 📊 Real-time stats tracking
 - ⚡ Server-side rendering with Next.js
 - 🚀 Zero-config Vercel deployment
+- 🔐 Payment verification via x402 middleware
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **AI**: OpenAI GPT-4-mini
-- **Payments**: x402 protocol (integration in progress)
+- **Payments**: x402 protocol with `x402-next` middleware
 - **Styling**: CSS with animations
 - **Deployment**: Vercel
 
@@ -131,13 +132,43 @@ degen-fortune-teller-next/
 ✅ **No CORS issues** - Same origin for all routes
 ✅ **Easier debugging** - Unified codebase
 
+## How It Works
+
+### Payment Flow
+
+1. User connects their wallet
+2. User selects a fortune category
+3. User clicks "Reveal My Fortune"
+4. **x402 middleware intercepts the request** to `/api/fortune`
+5. Payment verification happens via x402 protocol
+6. Upon successful payment, the API route generates the fortune
+7. Fortune is returned and stats are updated
+
+### x402 Integration
+
+The app uses Next.js middleware (`middleware.ts`) to protect the `/api/fortune` endpoint:
+
+```typescript
+export const middleware = paymentMiddleware(
+  payTo,
+  {
+    "/api/fortune": {
+      price: "$0.01",
+      network,
+    },
+  },
+  { url: facilitatorUrl },
+  { appName: "AI Fortune Teller" }
+);
+```
+
 ## Next Steps
 
-- [ ] Integrate x402 payment verification in `/api/fortune`
-- [ ] Add wallet connection UI
+- [ ] Add wallet connection UI to frontend
 - [ ] Implement persistent stats storage (database or Redis)
 - [ ] Add rate limiting
 - [ ] Add more fortune categories
+- [ ] Add transaction history
 
 ## License
 
