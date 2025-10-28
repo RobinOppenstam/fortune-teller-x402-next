@@ -1,0 +1,24 @@
+{
+  "name": "degen-fortune-teller-next",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "^24.9.1",
+    "@types/react": "^19.2.2",
+    "dotenv": "^17.2.3",
+    "next": "^16.0.0",
+    "openai": "^6.7.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "^5.9.3",
+    "viem": "^2.38.5",
+    "wagmi": "^2.14.11",
+    "x402-hono": "^0.7.0"
+  }
+}
